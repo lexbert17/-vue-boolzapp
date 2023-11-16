@@ -289,5 +289,8 @@ footer input[type=text]{
 .selected{
     background-color: lightgray;
 }
+.none{
+    display: none;
+}
 
     

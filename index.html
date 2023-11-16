@@ -48,7 +48,8 @@
                     <div class="search-container">
                         <div class="flex wrap-search" >
                             <button id="search"><i class="fa-solid fa-magnifying-glass fa-sm" style="color: hsl(0deg 0% 69.41%);"></i></button>
-                            <input type="text" class="name" name="firstname" placeholder="Cerca o inizia una nuova chat">
+                            <label for="search-in"></label>
+                            <input v-model="searchtext" id="search-in" type="text" class="name" name="firstname" placeholder="Cerca o inizia una nuova chat" name="search" @keyup="searchPerson">
                         </div>
                     </div>  
                     
@@ -57,15 +58,15 @@
                     <div class="list-container">
                         <ul class="flex column">
                             <!-- contatto michele  -->
-                            <li class="flex vertical-padding2 space-between " v-for="(person, index) in contacts" :key="index" :class="{'selected': person === selectedContact}">
+                            <li class="flex vertical-padding2 space-between " v-for="(person, index) in contacts" :key="index" :class="(index == indexperson) ? 'selected': '' " @click="setActivePerson(index)" v-show="person.visible">
                                 <div class="flex">
                                     <div class="profile padding-left">
-                                        <img src="img/avatar_1.jpg" alt="img">
+                                        <img :src="`img/avatar${ person.avatar }.jpg`" alt="img">
                                     </div>
                                     <!-- nome e messagio -->
                                     <div class="name-container">
                                         <h4 class="mg-bot1">{{person.name}}</h4>
-                                        <span>lorem ipsum dolor sit amet</span>       
+                                        <span v-for="(sms, smsindex) in person.messages">{{sms.message}}</span>       
                                     </div>
                                 </div>  
                                 <!-- orario   -->
@@ -81,12 +82,12 @@
             <div class="chat">
                 <header  class="flex space-between">
                     <!-- chat di michele -->
-                    <div class="michele-chat padding-left flex" v-for="(person, index) in contacts" :key="index" >
+                    <div class="michele-chat padding-left flex" v-for="(person, index) in contacts" :key="index" :class="(index !== indexperson) ? 'none' : '' " @click="setActivePerson(index)"  >
                         <div class="profile padding-left">
-                            <img src="img/avatar${person.avatar}.jpg" alt="img" >
+                            <img :src="`img/avatar${ person.avatar }.jpg`" alt="img" :class="" >
                         </div>
                         <div class="name-container">
-                            <h4 class="mg-bot1">MICHELE</h4>
+                            <h4 class="mg-bot1">{{person.name}}</h4>
                             <span>Ultimo accesso oggi alle 16.26</span>
                         </div>
                     </div>
@@ -100,7 +101,7 @@
                     </div>
                 </header>
                 <!-- chat  -->
-                <main class="main-right flex">
+                <main class="main-right flex" v-for="">
                     <!-- messaggio inviato -->
                     <div class=" message">
                         <div class="flex align">

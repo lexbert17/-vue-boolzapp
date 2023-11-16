@@ -4,6 +4,8 @@ createApp({
     data(){
         return {
             activeindex: 0,
+            indexperson: 0,
+            searchtext:'',
             contacts: [
                 {
                     name: 'Michele',
@@ -165,7 +167,7 @@ createApp({
                             status: 'received'
                         }
                     ],
-                    selectedContact: 'Michele'
+                    
                 }
             ],
 
@@ -174,6 +176,19 @@ createApp({
         }
     },
     methods: {
+        setActivePerson(index) {
+            this.indexperson = index;          
+        },
+        searchPerson(){
+            let search = this.searchtext.toLowerCase();
+            this.contacts.forEach(element => {
+                if(element.name.toLowerCase().includes(search)) {
+                    element.visible = true;
+                }else{
+                    element.visible = false;
+                }
 
+            });
+        }
     }
 }).mount("#app");
