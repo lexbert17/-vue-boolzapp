@@ -61,16 +61,16 @@
                             <li class="flex vertical-padding2 space-between " v-for="(person, index) in contacts" :key="index" :class="(index == indexperson) ? 'selected': '' " @click="setActivePerson(index)" v-show="person.visible">
                                 <div class="flex">
                                     <div class="profile padding-left">
-                                        <img :src="`img/avatar${ person.avatar }.jpg`" alt="img">
+                                        <img :src="`img/avatar${ person.avatar }.jpg`" :alt="`${ person.name }`">
                                     </div>
                                     <!-- nome e messagio -->
-                                    <div class="name-container">
+                                    <div class="name-container" >
                                         <h4 class="mg-bot1">{{person.name}}</h4>
-                                        <span v-for="(sms, smsindex) in person.messages">{{sms.message}}</span>       
+                                        <span >{{person.messages[person.messages.length - 1].message}}</span>       
                                     </div>
                                 </div>  
                                 <!-- orario   -->
-                                <div class="sent vertical-padding2">16:15</div>
+                                <div class="sent vertical-padding2">{{person.messages[person.messages.length - 1].date}}</div>
                             </li>
               
                         </ul>
@@ -84,7 +84,7 @@
                     <!-- chat di michele -->
                     <div class="michele-chat padding-left flex" v-for="(person, index) in contacts" :key="index" :class="(index !== indexperson) ? 'none' : '' " @click="setActivePerson(index)"  >
                         <div class="profile padding-left">
-                            <img :src="`img/avatar${ person.avatar }.jpg`" alt="img" :class="" >
+                            <img :src="`img/avatar${ person.avatar }.jpg`" :alt="`${ person.name }`" >
                         </div>
                         <div class="name-container">
                             <h4 class="mg-bot1">{{person.name}}</h4>
@@ -101,26 +101,26 @@
                     </div>
                 </header>
                 <!-- chat  -->
-                <main class="main-right flex" v-for="">
+                <main class="main-right flex">
                     <!-- messaggio inviato -->
-                    <div class=" message">
-                        <div class="flex align">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius iure numquam dignissimos voluptas, veritatis non vel dolor corporis quisquam culpa illo sequi quaerat debitis id cumque a sapiente fuga totam?</p>
-                            <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i>
+                    <div class=" message sent">
+                        <!-- <div class="flex align" >
+                            <p>ciao</p>
+                            <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i> -->
                                 <!-- hover impostazioni messaggio -->
-                                <div class="info">
+                                <!-- <div class="info">
                                     <div>Info messagio</div>
                                     <div>Cancella mesaggio</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="time">16.13 </div>
+                        <div class="time">16.13 </div> -->
                     </div>
 
                     <!-- messaggio ricevuto -->
-                    <div class="message">
+                    <div class="message" v-for="(text, index) in contacts[indexperson].messages"  :key="index" :class="(text.status == 'received') ? 'recived': 'sent' " >
                         <div class="flex align">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius iure numquam dignissimos voluptas, veritatis non vel dolor corporis quisquam culpa illo sequi quaerat debitis id cumque a sapiente fuga totam?</p>
+                            <p>{{text.message}}</p>
                             <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i>
                                 <!-- hover impostazioni messaggio  -->
                                 <div class="info">
@@ -137,7 +137,8 @@
                     <!-- smile  -->
                     <button class="button"><i class="fa-regular fa-face-smile fa-xl" style="color: hsl(198deg 4.42% 44.31%);"></i></button>
                     <!-- scrivi un messaggio  -->
-                    <input type="text" class="name" name="firstname" placeholder="Scrivi un messaggio">
+                    <label for="writeAmessage"></label>
+                    <input id="writeAMessage" type="text" class="name" name="firstname" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="addMessage">
                     <!-- microfono -->
                     <div class="bonus">
                     <button class="button" id="mic" ><i class="fa-solid fa-microphone fa-xl" ></i></button>
@@ -157,6 +158,8 @@
         </div>
     </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
+

@@ -3,9 +3,9 @@ const { createApp } = Vue;
 createApp({
     data(){
         return {
-            activeindex: 0,
             indexperson: 0,
             searchtext:'',
+            newMessage:'',
             contacts: [
                 {
                     name: 'Michele',
@@ -175,7 +175,12 @@ createApp({
             
         }
     },
+    
     methods: {
+        getlastindex(){
+            this.lastindex = this.contacts.messages[this.messages.length -1].message;
+            console.log(this.getlastindex(index));
+        },
         setActivePerson(index) {
             this.indexperson = index;          
         },
@@ -189,6 +194,22 @@ createApp({
                 }
 
             });
+        },
+        addMessage() {
+            if (this.newMessage !== "") {
+                this.contacts[this.indexperson].messages.push( {
+                    date: "10/01/2020 16:15:22",
+                    message:  this.newMessage,
+                    status: "sent"
+                })
+               console.log(this.contacts[this.indexperson].messages); 
+                //  this.contacts[this.indexperson].messages[this.contacts[this.indexperson].messages.length -1].message = this.newMessage;
+                this.newMessage = '';
+            }
+            
+        },
+        hoursAndMin(){
+
         }
     }
 }).mount("#app");
