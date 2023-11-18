@@ -70,7 +70,7 @@
                                     </div>
                                 </div>  
                                 <!-- orario   -->
-                                <div class="sent vertical-padding2">{{person.messages[person.messages.length - 1].date}}</div>
+                                <div class="sent vertical-padding2">{{hoursAndMin(person.messages[person.messages.length - 1].date)}}</div>
                             </li>
               
                         </ul>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="name-container">
                             <h4 class="mg-bot1">{{person.name}}</h4>
-                            <span>Ultimo accesso oggi alle 16.26</span>
+                            <span>Ultimo accesso oggi alle {{hoursAndMin(person.messages[person.messages.length - 1].date)}}</span>
                         </div>
                     </div>
 
@@ -102,24 +102,12 @@
                 </header>
                 <!-- chat  -->
                 <main class="main-right flex">
-                    <!-- messaggio inviato -->
-                    <div class=" message sent">
-                        <!-- <div class="flex align" >
-                            <p>ciao</p>
-                            <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i> -->
-                                <!-- hover impostazioni messaggio -->
-                                <!-- <div class="info">
-                                    <div>Info messagio</div>
-                                    <div>Cancella mesaggio</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="time">16.13 </div> -->
-                    </div>
+                    <!-- proprietà messaggio inviato  -->
+                    <div class=" message sent"> </div>
 
-                    <!-- messaggio ricevuto -->
+                    <!-- messaggi ricevuti e inviati -->
                     <div class="message" v-for="(text, index) in contacts[indexperson].messages"  :key="index" :class="(text.status == 'received') ? 'recived': 'sent' " >
-                        <div class="flex align">
+                        <div class="flex align" >
                             <p>{{text.message}}</p>
                             <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i>
                                 <!-- hover impostazioni messaggio  -->
@@ -129,7 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="time">16.15 </div>
+                        <div class="time">{{hoursAndMin(text.date)}}</div>
                     </div>
                 </main>
 

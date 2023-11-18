@@ -1,11 +1,14 @@
 const { createApp } = Vue;
 
+const dt = luxon.DateTime;
+
 createApp({
     data(){
         return {
             indexperson: 0,
             searchtext:'',
             newMessage:'',
+            textRecived:'',
             contacts: [
                 {
                     name: 'Michele',
@@ -175,12 +178,7 @@ createApp({
             
         }
     },
-    
     methods: {
-        getlastindex(){
-            this.lastindex = this.contacts.messages[this.messages.length -1].message;
-            console.log(this.getlastindex(index));
-        },
         setActivePerson(index) {
             this.indexperson = index;          
         },
@@ -203,13 +201,24 @@ createApp({
                     status: "sent"
                 })
                console.log(this.contacts[this.indexperson].messages); 
-                //  this.contacts[this.indexperson].messages[this.contacts[this.indexperson].messages.length -1].message = this.newMessage;
                 this.newMessage = '';
+
+                setTimeout(this.okayReceived , 1000);
+                   
             }
             
         },
-        hoursAndMin(){
-
-        }
+        hoursAndMin(fullDate){
+            const luxonDate = dt.fromFormat(fullDate, "dd/MM/yyyy HH:mm:ss");
+            return luxonDate.toFormat("HH:mm");
+        },
+        okayReceived() {
+            this.contacts[this.indexperson].messages.push( {
+                date: "10/01/2020 16:15:22",
+                message:  "okay",
+                status: "received"
+            })
+          }
+     
     }
 }).mount("#app");
