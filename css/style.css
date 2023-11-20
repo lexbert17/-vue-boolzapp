@@ -45,6 +45,17 @@ header{
 .mg-bot1{
     margin-bottom: .3rem;
 }
+
+.active{
+    display: block;
+}  
+
+.selected{
+    background-color: lightgray;
+}
+.none{
+    display: none;
+}
 /* / elementi in comune */
 
 
@@ -284,15 +295,6 @@ footer input[type=text]{
 /* contenitore parte destra */
 
     
-.active{
-    display: block;
-}  
 
-.selected{
-    background-color: lightgray;
-}
-.none{
-    display: none;
-}
 
     
