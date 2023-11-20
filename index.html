@@ -109,9 +109,9 @@
                     <div class="message" v-for="(text, index) in contacts[indexperson].messages"  :key="index" :class="(text.status == 'received') ? 'recived': 'sent' " >
                         <div class="flex align" >
                             <p>{{text.message}}</p>
-                            <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;"></i>
+                            <div class="chevron"><i class="fa-solid fa-chevron-down fa-sm" style="color:lightgray;" @click="setting(index)"></i>
                                 <!-- hover impostazioni messaggio  -->
-                                <div class="info">
+                                <div class="info" :class="info">
                                     <div>Info messagio</div>
                                     <div>Cancella mesaggio</div>
                                 </div>

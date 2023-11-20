@@ -5,6 +5,7 @@ const dt = luxon.DateTime;
 createApp({
     data(){
         return {
+            info:'',
             indexperson: 0,
             searchtext:'',
             newMessage:'',
@@ -182,6 +183,7 @@ createApp({
         setActivePerson(index) {
             this.indexperson = index;          
         },
+        // barra di ricerca
         searchPerson(){
             let search = this.searchtext.toLowerCase();
             this.contacts.forEach(element => {
@@ -193,6 +195,7 @@ createApp({
 
             });
         },
+        // invio messaggio
         addMessage() {
             if (this.newMessage !== "") {
                 this.contacts[this.indexperson].messages.push( {
@@ -208,17 +211,24 @@ createApp({
             }
             
         },
+        // orario messaggi
         hoursAndMin(fullDate){
             const luxonDate = dt.fromFormat(fullDate, "dd/MM/yyyy HH:mm:ss");
             return luxonDate.toFormat("HH:mm");
         },
+        // risposta automatica
         okayReceived() {
             this.contacts[this.indexperson].messages.push( {
                 date: "10/01/2020 16:15:22",
                 message:  "okay",
                 status: "received"
             })
-          }
+        },
+        // setting() {
+        //     this.indexperson = index;
+        //     this.info = "active";
+        // }
+
      
     }
 }).mount("#app");
